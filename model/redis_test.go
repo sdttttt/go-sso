@@ -1,11 +1,10 @@
-package test
+package model
 
 import (
 	"fmt"
 	"testing"
 
 	"github.com/go-redis/redis"
-	"github.com/sdttttt/go-sso/model"
 )
 
 func TestExampleNewClient(t *testing.T) {
@@ -21,7 +20,7 @@ func TestExampleNewClient(t *testing.T) {
 }
 
 func TestExampleNewClient2(t *testing.T) {
-	client := model.RedisConnectInstance()
+	client := RedisConnectInstance()
 
 	pong, err := client.Ping().Result()
 	fmt.Println(pong, err)
