@@ -1,0 +1,11 @@
+language: go
+
+go:
+  - "1.13.*"
+  - master
+
+sudo: required
+
+script:
+  - go get -v
+  - make test
