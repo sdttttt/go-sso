@@ -10,6 +10,8 @@ import (
 
 type AuthenticationModule struct{}
 
+// type RpcAuthenticationModule struct{}
+
 func (*AuthenticationModule) VerifyToken(token string) bool {
 	_, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		return util.SecetKey, nil
@@ -40,4 +42,16 @@ func (*AuthenticationModule) GenerateToken() string {
 	}
 
 	return tokenString
+}
+
+func (auth *AuthenticationModule) RpcGenerateToken(p interface{}, token *string) error {
+	newToken := auth.GenerateToken()
+	token = &newToken
+	return nil
+}
+
+func (auth *AuthenticationModule) RpcVerifyToken(token string, result *bool) error {
+	newResult := auth.VerifyToken(token)
+	result = &newResult
+	return nil
 }

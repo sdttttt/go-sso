@@ -1,11 +1,30 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import "github.com/sdttttt/go-sso/entry"
+
+import "net/rpc"
+
+import "net"
+
+import "net/http"
 
 func main() {
+	authModule := new(entry.AuthenticationModule)
 
-	application := gin.Default()
+	err := rpc.Register(authModule)
 
-	application.Run()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	rpc.HandleHTTP()
+
+	listen, err := net.Listen("tcp", ":8001")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	http.Serve(listen, nil)
 
 }
